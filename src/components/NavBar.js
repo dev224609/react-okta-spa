@@ -7,7 +7,7 @@ const NavBar = () => {
 
   const login = () => oktaAuth.signInWithRedirect();
   const logout = () =>
-    oktaAuth.signOut({ postLogoutRedirectUri: window.location.origin });
+    oktaAuth.signOut({ postLogoutRedirectUri: process.env.postLogoutRedirectUri || window.location.origin });
 
   return (
     <nav style={styles.nav}>
