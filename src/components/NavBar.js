@@ -6,9 +6,24 @@ const NavBar = () => {
   const { oktaAuth, authState } = useOktaAuth();
 
   const login = () => oktaAuth.signInWithRedirect();
-  const logout = () =>
-    oktaAuth.signOut({ postLogoutRedirectUri: process.env.postLogoutRedirectUri || window.location.origin });
+  const logout = async () => {
+    try {
+      if (process.env.externalLogoutEnabled == "true") {
+        const redirectTo = process.env.postLogoutRedirectUri+"?id_token_hint="+oktaAuth.getIdToken()+"&post_logout_redirect_uri="+window.location.origin+"/applogout";
+        window.location.replace(redirectTo);
+        return null;
+      }
+      else {
+        oktaAuth.signOut({ postLogoutRedirectUri: process.env.postLogoutRedirectUri || window.location.origin });
+      }
 
+
+     } catch (err) {
+      console.error('Redirect failed', err);
+    }
+  };
+
+    
   return (
     <nav style={styles.nav}>
       <Link to="/" style={styles.brand}>React-Okta-SPA</Link>

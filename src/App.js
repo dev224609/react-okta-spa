@@ -6,6 +6,8 @@ import Layout       from './components/Layout';
 import RequireAuth  from './components/RequireAuth';
 import Home         from './pages/Home';
 import Profile      from './pages/Profile';
+import Applogout    from './components/Applogout';
+
 
 export default function App() {
   return (
@@ -27,6 +29,8 @@ export default function App() {
             </RequireAuth>
           }
         />
+
+        <Route path="/applogout" element={<Applogout />}></Route>
 
         {/* Catch-all → back to Home */}
         <Route path="*" element={<Navigate to="/" replace />} />
