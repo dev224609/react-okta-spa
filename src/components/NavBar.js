@@ -4,17 +4,18 @@ import { useOktaAuth } from '@okta/okta-react';
 
 const NavBar = () => {
   const { oktaAuth, authState } = useOktaAuth();
+  const chained_logout = process.env.REACT_APP_CHAINED_LOGOUT;
 
   const login = () => oktaAuth.signInWithRedirect();
   const logout = async () => {
     try {
-      if (process.env.externalLogoutEnabled === "true") {
-        const redirectTo = process.env.postLogoutRedirectUri+"?id_token_hint="+oktaAuth.getIdToken()+"&post_logout_redirect_uri="+window.location.origin+"/applogout";
+      if (chained_logout === "enabled") {
+        const redirectTo = process.env.REACT_APP_postLogoutRedirectUri+"?id_token_hint="+oktaAuth.getIdToken()+"&post_logout_redirect_uri="+window.location.origin+"/applogout";
         window.location.replace(redirectTo);
         return null;
       }
       else {
-        oktaAuth.signOut({ postLogoutRedirectUri: process.env.postLogoutRedirectUri || window.location.origin });
+        oktaAuth.signOut({ postLogoutRedirectUri: process.env.REACT_APP_postLogoutRedirectUri || window.location.origin+"/applogout" });
       }
 
 

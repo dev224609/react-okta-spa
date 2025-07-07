@@ -12,4 +12,4 @@ Sample app to test the Okta SSO integration with SPA
 
 ### v2.0.0
 * Redirects to External Logout URL to enabled chained Logout.
-    * Environment variable _'externalLogoutEnabled'_ should be set as true and define the External logout url for the parameter _'postLogoutRedirectUri'_
+    * Environment variable _'REACT_APP_CHAINED_LOGOUT'_ should be set as true and define the External logout url for the parameter _'REACT_APP_postLogoutRedirectUri'_
