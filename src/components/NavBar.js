@@ -8,7 +8,7 @@ const NavBar = () => {
   const login = () => oktaAuth.signInWithRedirect();
   const logout = async () => {
     try {
-      if (process.env.externalLogoutEnabled == "true") {
+      if (process.env.externalLogoutEnabled === "true") {
         const redirectTo = process.env.postLogoutRedirectUri+"?id_token_hint="+oktaAuth.getIdToken()+"&post_logout_redirect_uri="+window.location.origin+"/applogout";
         window.location.replace(redirectTo);
         return null;
